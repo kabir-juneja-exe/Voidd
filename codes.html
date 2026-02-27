@@ -19,216 +19,207 @@
             min-height: 100vh;
         }
 
-        /* Navigation Header */
-        .nav-header {
-            width: 100%;
-            max-width: 1200px;
+        /* --- SYNCED NAVIGATION --- */
+        .profile-header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 50px;
+            gap: 12px;
+            z-index: 10;
         }
+        .avatar-small { width: 50px; height: 50px; border-radius: 50%; border: 2px solid white; }
+        .username-top { font-weight: bold; font-size: 1.1rem; }
 
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            text-decoration: none;
-            color: white;
-        }
-
-        .back-home {
-            text-decoration: none;
-            color: #bbb;
-            transition: 0.3s;
-            font-weight: bold;
-        }
-
-        .back-home:hover { color: white; }
-
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            text-align: center;
-            letter-spacing: 3px;
-        }
-
-        /* --- THE 9 BLOCKS GRID --- */
-        .codes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            width: 100%;
-            max-width: 1100px;
-            padding-bottom: 50px;
-        }
-
-        .code-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 25px;
-            transition: 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(5px);
+        .menu-btn {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            cursor: pointer;
+            z-index: 1001;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            gap: 6px;
         }
+        .line { height: 3px; background-color: white; border-radius: 2px; transition: 0.3s; }
+        .line-1 { width: 35px; } .line-2 { width: 25px; } .line-3 { width: 15px; }
 
-        .code-card:hover {
-            transform: translateY(-10px);
-            border-color: #00f7ff;
-            box-shadow: 0 10px 30px rgba(0, 247, 255, 0.1);
-        }
-
-        .code-card h3 {
-            font-family: 'Orbitron', sans-serif;
-            margin: 0 0 10px 0;
-            font-size: 1.2rem;
-            color: #00f7ff;
-        }
-
-        .code-card p {
-            color: #bbb;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        .tags {
+        .sidebar {
+            position: fixed;
+            top: 0; right: -250px;
+            width: 250px; height: 100%;
+            background-color: #1a1a1a;
+            transition: 0.4s ease;
+            z-index: 1000;
+            padding-top: 80px;
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            flex-direction: column;
+        }
+        .sidebar.active { right: 0; }
+        .sidebar a { padding: 15px 30px; text-decoration: none; color: #bbb; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; z-index: 999; }
+        .overlay.active { display: block; }
+
+        /* --- GRID LAYOUT --- */
+        .container {
+            margin-top: 100px;
+            width: 95%;
+            max-width: 1100px;
+            text-align: center;
         }
 
-        .tag {
-            font-size: 0.75rem;
-            background: rgba(0, 247, 255, 0.1);
-            color: #00f7ff;
-            padding: 4px 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            text-transform: uppercase;
+        h1 { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; margin-bottom: 50px; }
+
+        .codes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 in a row for PC */
+            gap: 20px;
+        }
+
+        /* Responsive: 1 column for mobile */
+        @media (max-width: 900px) {
+            .codes-grid { grid-template-columns: 1fr; }
+        }
+
+        /* --- BOX STYLING (MATCHING IMAGE) --- */
+        .code-box {
+            background-color: #0f0f0f;
+            border-radius: 24px;
+            padding: 30px;
+            text-align: left;
+            border: 1px solid #1e1e1e;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .code-box h2 {
+            margin: 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.2;
+        }
+
+        .script-tag {
+            color: #7289da; /* Blue color from image */
+            font-weight: 500;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .view-btn {
-            margin-top: 20px;
-            display: inline-block;
-            text-decoration: none;
+            background-color: #1a1a1a;
             color: white;
-            background: transparent;
-            border: 1px solid white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            font-size: 0.85rem;
-            transition: 0.3s;
+            text-decoration: none;
             text-align: center;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border: 1px solid #2a2a2a;
+            transition: 0.3s;
         }
 
         .view-btn:hover {
-            background: white;
-            color: black;
+            background-color: #252525;
+            border-color: #ffffff;
         }
+
+        /* --- FOOTER SOCIALS --- */
+        .footer-socials {
+            margin-top: 60px;
+            display: flex;
+            gap: 35px;
+            justify-content: center;
+        }
+        .social-icon { color: #bbb; font-size: 2.2rem; transition: 0.3s; }
+        .copyright { margin-top: 40px; color: #bbb; font-size: 0.9rem; padding-bottom: 30px; }
     </style>
 </head>
 <body>
 
-    <div class="nav-header">
-        <a href="index.html" class="logo">SHADOW</a>
-        <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    <div class="profile-header">
+        <img src="https://cdn.discordapp.com/avatars/1301883723247124521/4793f5066c0ee12d60df0414b57fe1ee.png" class="avatar-small">
+        <span class="username-top">Kabir.exe.</span>
     </div>
 
-    <h1>MY PROJECTS</h1>
-
-    <div class="codes-grid">
-        <div class="code-card">
-            <div>
-                <h3>Discord Bot UI</h3>
-                <p>A sleek, automated dashboard for managing Discord bots with real-time stats.</p>
-            </div>
-            <div class="tags"><span class="tag">HTML</span> <span class="tag">CSS</span></div>
-            <a href="#" class="view-btn">View Code</a>
-        </div>
-
-        <div class="code-card">
-            <div>
-                <h3>Portfolio Template</h3>
-                <p>Minimalist glassmorphism portfolio design for developers and designers.</p>
-            </div>
-            <div class="tags"><span class="tag">React</span> <span class="tag">Tailwind</span></div>
-            <a href="#" class="view-btn">View Code</a>
-        </div>
-
-        <div class="code-card">
-            <div>
-                <h3>Lanyard Sync API</h3>
-                <p>Custom script to fetch Discord presence and display it on any website.</p>
-            </div>
-            <div class="tags"><span class="tag">JS</span> <span class="tag">API</span></div>
-            <a href="#" class="view-btn">View Code</a>
-        </div>
-
-        <div class="code-card">
-            <div>
-                <h3>Auth System</h3>
-                <p>Secure login and registration system with JWT and database encryption.</p>
-            </div>
-            <div class="tags"><span class="tag">Node.js</span> <span class="tag">SQL</span></div>
-            <a href="#" class="view-btn">View Code</a>
-        </div>
-
-        <div class="code-card">
-            <div>
-                <h3>Bio Link Page</h3>
-                <p>Advanced link-in-bio page with social integration and custom themes.</p>
-            </div>
-            <div class="tags"><span class="tag">HTML</span> <span class="tag">CSS</span></div>
-            <a href="#" class="view-btn">View Code</a>
-        </div>
-
-        <div class="code-card">
-            <div>
-                <h3>Weather App</h3>
-                <p>Real-time weather tracking using OpenWeatherMap API with dynamic icons.</p>
-            </div>
-            <div class="tags"><span class="tag">JS</span> <span class="tag">JSON</span></div>
-            <a href="#" class="view-btn">View Code</a>
-        </div>
-
-        <div class="code-card">
-            <div>
-                <h3>Music Player</h3>
-                <p>Web-based music player with playlist support and visualizer.</p>
-            </div>
-            <div class="tags"><span class="tag">JS</span> <span class="tag">CSS</span></div>
-            <a href="#" class="view-btn">View Code</a>
-        </div>
-
-        <div class="code-card">
-            <div>
-                <h3>E-Commerce UI</h3>
-                <p>Modern shopping interface with cart functionality and dark mode.</p>
-            </div>
-            <div class="tags"><span class="tag">Vue</span> <span class="tag">SCSS</span></div>
-            <a href="#" class="view-btn">View Code</a>
-        </div>
-
-        <div class="code-card">
-            <div>
-                <h3>Task Manager</h3>
-                <p>Productivity tool to track daily tasks with local storage persistence.</p>
-            </div>
-            <div class="tags"><span class="tag">JS</span> <span class="tag">HTML</span></div>
-            <a href="#" class="view-btn">View Code</a>
-        </div>
+    <div class="menu-btn" onclick="toggleSidebar()">
+        <div class="line line-1"></div>
+        <div class="line line-2"></div>
+        <div class="line line-3"></div>
     </div>
 
-    <div style="margin-top: 40px; color: #777; font-size: 0.9rem;">
-        &copy; 2026 Kabir Juneja | All Rights Reserved
+    <div class="sidebar" id="sidebar">
+        <a href="index.html">Home</a>
+        <a href="codes.html">Codes</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
     </div>
 
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <div class="container">
+        <h1>Codes</h1>
+
+        <div class="codes-grid">
+            
+            <div class="code-box">
+                <h2>Bitcoin Price Checker Code</h2>
+                <div class="script-tag"><i class="fas fa-code"></i> BDScript 2</div>
+                <a href="btccode.html" class="view-btn">View Snippet</a>
+            </div>
+
+            <div class="code-box">
+                <h2>HEX Role Code</h2>
+                <div class="script-tag"><i class="fas fa-code"></i> BDScript 2</div>
+                <a href="hexcode.html" class="view-btn">View Snippet</a>
+            </div>
+
+            <div class="code-box">
+                <h2>Giveaway Code</h2>
+                <div class="script-tag"><i class="fas fa-code"></i> BDScript 2</div>
+                <a href="gwcode.html" class="view-btn">View Snippet</a>
+            </div>
+
+            <div class="code-box">
+                <h2>Welcome Message (with card)</h2>
+                <div class="script-tag"><i class="fas fa-code"></i> BDScript 2</div>
+                <a href="welcomecode.html" class="view-btn">View Snippet</a>
+            </div>
+
+            <div class="code-box">
+                <h2>Whois Code</h2>
+                <div class="script-tag"><i class="fas fa-code"></i> BDScript 2</div>
+                <a href="whoiscode.html" class="view-btn">View Snippet</a>
+            </div>
+
+            <div class="code-box">
+                <h2>Container Ticket System Code</h2>
+                <div class="script-tag"><i class="fas fa-code"></i> BDScript 2</div>
+                <a href="tickercode.html" class="view-btn">View Snippet</a>
+            </div>
+
+        </div>
+
+        <div class="footer-socials">
+            <a href="https://discord.gg/void" class="social-icon"><i class="fa-brands fa-discord"></i></a>
+            <a href="mailto:kabir0juneja@gmail.com" class="social-icon"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://guns.lol/kabirjuneja" class="social-icon"><i class="fa-solid fa-gun"></i></a>
+        </div>
+        <div class="copyright">All Rights Reserved by Kabir Juneja</div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+    </script>
 </body>
-</html>
-
+                                            </html>
+                                            
